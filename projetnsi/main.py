@@ -2,7 +2,6 @@ import pygame #on importe la pygame
 from players import *
 from pygame.locals import *
 import time
-from game import *
 
 pygame.init() #on initialise pygame
 
@@ -12,15 +11,18 @@ background = pygame.image.load("background.png").convert()
 
 touche = {} #dictionnaire qui les touches préssées et les enregistres pour permettre des déplacements fluides
 
-continuer = 1 
+continuer = 1
+
+player1 = Players('macron.png', 100, 310)
+player2 = Players('mlp.png', 865, 300)
 
 timer = pygame.time.Clock()
 
-while continuer: 
+while continuer:
 
     print(touche)
 
-    window.blit(background, (0,0))
+    window.blit(background, (0,0))   #on applique les images nécéssaires (background, les joueurs)
     window.blit(player1.image, player1.rect)
     window.blit(player2.image, player2.rect)
 
@@ -32,7 +34,7 @@ while continuer:
                 player1.stamina -= 10
                 print(player1.stamina)
 
-        if touche.get(pygame.K_DOWN): 
+        if touche.get(pygame.K_DOWN):
             if player2.stamina > 0 :
                 player1.rect.x -= 10 * dt
                 player2.stamina -= 10
@@ -58,7 +60,7 @@ while continuer:
 
     for event in pygame.event.get():
 
-        if event.type == pygame.QUIT: 
+        if event.type == pygame.QUIT:
             continuer = 0
             pygame.quit()
 
@@ -66,7 +68,7 @@ while continuer:
             touche[event.key] = True
         elif event.type == pygame.KEYUP:
             touche[event.key] = False
-        
-    dt = timer.tick(60) #en ms, bloque les fps 
+
+    dt = timer.tick(60) #en ms, bloque les fps
     print(dt)
 
