@@ -8,6 +8,7 @@ pygame.init() #on initialise pygame
 window = pygame.display.set_mode((1280, 720))
 
 background = pygame.image.load("background.png").convert()
+defaitemanu = pygame.image.load("macrondef.png").convert()
 
 touche = {} #dictionnaire qui les touches préssées et les enregistres pour permettre des déplacements fluides
 
@@ -26,9 +27,14 @@ while continuer:
     window.blit(player1.image, player1.rect)
     window.blit(player2.image, player2.rect)
 
+    print(player1.rect.x)
+
+    if player1.rect.x < -200:
+        window.blit(defaitemanu, (0,0))
+
     if pygame.sprite.collide_rect(player1, player2) == True:
 
-        if touche.get(pygame.K_z):
+        if touche.get(pygame.K_w):
             if player1.stamina > 0 :
                 player2.rect.x += 10 * dt
                 player1.stamina -= 10
@@ -38,6 +44,7 @@ while continuer:
             if player2.stamina > 0 :
                 player1.rect.x -= 10 * dt
                 player2.stamina -= 10
+                print(player2.stamina)
 
     if pygame.sprite.collide_rect(player1, player2) == False:
 
